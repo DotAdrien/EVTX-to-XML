@@ -1,22 +1,5 @@
 #!/usr/bin/env python3
-"""
-Fusionne tous les .evtx d'un répertoire en un seul fichier JSON (1 événement par ligne)
-prêt à être importé dans Splunk avec extraction automatique des champs.
 
-Chaque ligne contient (valeurs vides supprimées, champs à plat, noms explicites) :
-  - timestamp   : date de l'événement (ISO 8601, en premier pour que Splunk la détecte)
-  - SourceFile  : fichier .evtx d'origine
-  - Computer, Channel, Provider, EventID, Level, Task, Opcode, Keywords,
-    EventRecordID, ProcessID, ThreadID, UserID... : champs de <System> à plat
-  - EventData / UserData : données propres à l'événement (EventData.TargetUserName, ...)
-
-Dépendance : python -m pip install evtx      (optionnel, plus rapide : orjson)
-
-Exemples :
-    python evtx_to_json.py -o all_events.json
-    python evtx_to_json.py -d C:\\logs -r -j 8
-    python evtx_to_json.py --hec        # format HTTP Event Collector (envoi par HEC)
-"""
 import argparse
 import os
 import shutil
